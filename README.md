@@ -39,8 +39,8 @@ Change monitoring system that checks the content of web pages in different perio
 ### Backend :gear: : 
 | Name | Description | Link 
 | ------ | ------ | ------
-| Nodejs | Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine| https://nodejs.org/en/
-Sails.js | Sails.js makes it easy to build custom, enterprise-grade Node.js apps | https://sailsjs.com/
+| Nodejs | Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.| https://nodejs.org/en/
+Sails.js | Sails.js makes it easy to build custom, enterprise-grade Node.js apps. | https://sailsjs.com/
 MongoDB | MongoDB is a cross-platform document-oriented database program. |https://www.mongodb.com/
 EJS| EJS is a simple templating language that lets you generate HTML markup with plain JavaScript. |https://ejs.co/|
 ...|...|...|
@@ -50,7 +50,7 @@ EJS| EJS is a simple templating language that lets you generate HTML markup with
 | ------ | ------ | ------
 | Vue.js| The Progressive JavaScript Framework. | https://vuejs.org
 | Bootstrap |  The most popular HTML, CSS, and JS library in the world. | https://getbootstrap.com/
-Font Awesome|The world's most popular and easiest to use icon|https://fontawesome.com/|
+Font Awesome|The world's most popular and easiest to use icon.|https://fontawesome.com/|
 ...|...|...|
 
 ### Object Diagram :card_file_box:	 
