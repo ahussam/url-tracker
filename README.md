@@ -42,7 +42,7 @@ Change monitoring system that checks the content of web pages in different perio
 | Nodejs | Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine| https://nodejs.org/en/
 Sails.js | Sails.js makes it easy to build custom, enterprise-grade Node.js apps | https://sailsjs.com/
 MongoDB | MongoDB is a cross-platform document-oriented database program. |https://www.mongodb.com/
-Ejs|V EJS is a simple templating language that lets you generate HTML markup with plain JavaScript. |https://ejs.co/|
+EJS| EJS is a simple templating language that lets you generate HTML markup with plain JavaScript. |https://ejs.co/|
 ...|...|...|
 
 ### Frontend :desktop_computer:  
