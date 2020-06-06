@@ -54,7 +54,7 @@ Font Awesome|The world's most popular and easiest to use icon|https://fontawesom
 ...|...|...|
 
 ### Object Diagram :card_file_box:	 
-![OD](/ss/od.jpg)
+![OD](/img/od.jpg)
 
 ------
 
@@ -92,8 +92,6 @@ Insert admin user into mongodb
 
 ```
 {
-    "createdAt": 1591181326736,
-    "updatedAt": 1591379464868,
     "emailAddress": "admin@example.com",
     "emailStatus": "confirmed",
     "emailChangeCandidate": "",
@@ -116,11 +114,11 @@ admin@example.com| 123456
 ------
 
 ### Screenshots :camera:	
-![ss](/ss/ss1.png)
+![ss](/img/ss1.png)
 
-![ss](/ss/ss2.png)
+![ss](/img/ss2.png)
 
-![ss](/ss/ss3.png)
+![ss](/img/ss3.png)
 
 ------
 
