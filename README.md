@@ -24,7 +24,7 @@ Change monitoring system that checks the content of web pages in different perio
 ## Code Organisation :open_file_folder:	
 
 ```
-+---api // controllers, models, helpers 
++---api // Controllers, models, helpers 
 +---assets // UI assets 
 +---config // Config files: routes, security, datastores, ...etc
 +---crontab // Fetch function file
