@@ -39,7 +39,8 @@
     "_": true,
 
     // Models:
-    "User": true
+    "User": true,
+    "Target":true
     
     // …and any others.
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

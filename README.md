@@ -1,28 +1,128 @@
-# my-app
+# URL Tracker v 0.1 
 
-a [Sails v1](https://sailsjs.com) application
+Change monitoring system that checks the content of web pages in different periods (hourly, daily, weekly, monthly) and detects if they were modified since the last check. Can be used to monitor S3, Azure, JS files, ...etc.   
 
+### Motivation :battery:
 
-### Links
-
-+ [Sails framework documentation](https://sailsjs.com/get-started)
-+ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
-+ [Community support options](https://sailsjs.com/support)
-+ [Professional / enterprise options](https://sailsjs.com/enterprise)
+* Blog Post: https://ahussam.me/careem-aws-s3-bucket-takeover/
 
 
-### Version info
+## How to use :arrow_forward:
 
-This app was originally generated on Wed Jun 03 2020 13:43:40 GMT+0300 (Arabian Standard Time) using Sails v1.2.4.
+* Add static content pages (images, JS script, HTML, ...etc) e.g: https://s3.amazonaws.com/[TARGET]/wellcome.html
+* The app will fetch the response hash it and store it in the database.
+* In case the response changed (S3 bucket got removed, 404 for Github pages, Azure 404, ...etc) You will see the changed links with a red background. 
 
-<!-- Internally, Sails used [`sails-generate@1.17.2`](https://github.com/balderdashy/sails-generate/tree/v1.17.2/lib/core-generators/new). -->
+## Features :ballot_box_with_check:	
+
+  - Login system. 
+  - 4 periods checks. 
+  - Email reporting.
+  - Search in items. 
+  - **... More soon I hope**  
+
+## Code Organisation :open_file_folder:	
+
+```
++---api // controllers, models, helpers 
++---assets // UI assets 
++---config // Config files: routes, security, datastores, ...etc
++---crontab // Fetch function file
++---scripts // Cloud SDK
++---tasks // Grunt tasks
++---view 
+       \---layout // App layout
+        \---pages // HTML in ejs templates 
+```
+
+## Technologies :hammer_and_wrench:	
+### Backend :gear: : 
+| Name | Description | Link 
+| ------ | ------ | ------
+| Nodejs | Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine| https://nodejs.org/en/
+Sails.js | Sails.js makes it easy to build custom, enterprise-grade Node.js apps | https://sailsjs.com/
+MongoDB | MongoDB is a cross-platform document-oriented database program. |https://www.mongodb.com/
+Ejs|V EJS is a simple templating language that lets you generate HTML markup with plain JavaScript. |https://ejs.co/|
+...|...|...|
+
+### Frontend :desktop_computer:  
+| Name | Description | Link 
+| ------ | ------ | ------
+| Vue.js| The Progressive JavaScript Framework. | https://vuejs.org
+| Bootstrap |  The most popular HTML, CSS, and JS library in the world. | https://getbootstrap.com/
+Font Awesome|The world's most popular and easiest to use icon|https://fontawesome.com/|
+...|...|...|
+
+### Object Diagram :card_file_box:	 
+![OD](/ss/od.jpg)
+
+------
 
 
-This project's boilerplate is based on an expanded seed app provided by the [Sails core team](https://sailsjs.com/about) to make it easier for you to build on top of ready-made features like authentication, enrollment, email verification, and billing.  For more information, [drop us a line](https://sailsjs.com/support).
+### REST API :link:	
 
+| URL | Description 
+| ------ | ------ | 
+/api/v1/account/* | Account operations 
+/api/v1/settings | Settings operations 
+/api/v1/link/* | Target operations 
+/api/v1/entrance/login| Login operation
 
-<!--
-Note:  Generators are usually run using the globally-installed `sails` CLI (command-line interface).  This CLI version is _environment-specific_ rather than app-specific, thus over time, as a project's dependencies are upgraded or the project is worked on by different developers on different computers using different versions of Node.js, the Sails dependency in its package.json file may differ from the globally-installed Sails CLI release it was originally generated with.  (Be sure to always check out the relevant [upgrading guides](https://sailsjs.com/upgrading) before upgrading the version of Sails used by your app.  If you're stuck, [get help here](https://sailsjs.com/support).)
--->
+------
 
+### Deployment :rocket:	
+
+```
+root@ubuntu:~# git clone https://github.com/ahussam/url-tracker.git
+root@ubuntu:~# cd url-tracker
+root@ubuntu:/url-tracker# npm install 
+root@ubuntu:/url-tracker# sails lift 
+```
+
+Then go to [http://127.0.0.1:1337](http://127.0.0.1:1337) 
+
+For deployment on a live server create a mongodb and uncomment the lines in `config/env/production.js`
+
+```
+      adapter: 'sails-mysql',
+      url: 'mysql://user:password@host:port/database',
+```
+
+Insert admin user into mongodb
+
+```
+{
+    "createdAt": 1591181326736,
+    "updatedAt": 1591379464868,
+    "emailAddress": "admin@example.com",
+    "emailStatus": "confirmed",
+    "emailChangeCandidate": "",
+    "password": "$2a$10$dnfLLl.5HC16klqNPQ/44.I5BgO/p2JasxuuPTQITapp1cklzveLy",
+    "fullName": "Ryan Dahl1",
+    "lastSeenAt": 1591379464868
+}
+```
+
+For more information check this out: https://sailsjs.com/documentation/concepts/deployment/hosting 
+
+------
+
+#### Test Credentials :key:	
+
+ Email | Password 
+------ | -------
+admin@example.com| 123456
+
+------
+
+### Screenshots :camera:	
+![ss](/ss/ss1.png)
+
+![ss](/ss/ss2.png)
+
+![ss](/ss/ss3.png)
+
+------
+
+## License :page_facing_up:	
+MIT

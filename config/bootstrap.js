@@ -77,3 +77,22 @@ module.exports.bootstrap = async function() {
   });
 
 };
+
+/* Cron setup 
+   https://www.ermmedia.nl/how-to-create-a-cronjob-in-sails
+*/
+
+module.exports.bootstrap = function(cb) {
+
+  _.extend(sails.hooks.http.app.locals, sails.config.http.locals);
+  
+  
+  var schedule = require('node-schedule');
+  sails.config.crontab.crons().forEach(function(item){
+  schedule.scheduleJob(item.interval,sails.config.crontab[item.method]);
+  });
+  
+  cb();
+  };
+  
+   

@@ -1,4 +1,4 @@
-parasails.registerPage('edit-profile', {
+parasails.registerPage('edit-settings', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
@@ -15,6 +15,8 @@ parasails.registerPage('edit-profile', {
 
     // Server error state for the form
     cloudError: '',
+    
+
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -25,11 +27,13 @@ parasails.registerPage('edit-profile', {
     _.extend(this, SAILS_LOCALS);
 
     // Set the form data.
-    this.formData.fullName = this.me.fullName;
-    this.formData.emailAddress = this.me.emailChangeCandidate ? this.me.emailChangeCandidate : this.me.emailAddress;
+    this.formData.emailFrom = this.emailFrom;
+    this.formData.emailFromPassword = this.emailFromPassword;
+    this.formData.emailTo = this.emailTo;
+    this.formData.reportToEmail = this.reportToEmail; 
   },
   mounted: async function() {
-    //…
+    // console.log(this.test)
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
@@ -51,15 +55,21 @@ parasails.registerPage('edit-profile', {
 
       var argins = this.formData;
 
-      // Validate name:
-      if(!argins.fullName) {
-        this.formErrors.fullName = true;
+      // Validate email
+      if(!argins.emailFrom) {
+        this.formErrors.emailFrom = true;
       }
 
-      // Validate email:
-      if(!argins.emailAddress) {
-        this.formErrors.emailAddress = true;
+      // Validate password 
+      if(!argins.emailFromPassword) {
+        this.formErrors.emailFromPassword = true;
       }
+
+
+         // Validate email to 
+         if(!argins.emailTo) {
+          this.formErrors.emailTo = true;
+        }
 
       // If there were any issues, they've already now been communicated to the user,
       // so simply return undefined.  (This signifies that the submission should be

@@ -1,0 +1,51 @@
+<div id="edit-settings" v-cloak>
+  <div class="container">
+    <br>
+    <h1>Settings</h1>
+    <hr/>
+    <ajax-form action="updateSettings" :syncing.sync="syncing" :cloud-error.sync="cloudError" @submitted="submittedForm()" :handle-parsing="handleParsingForm">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="email-from">Sender Gmail</label>
+            <input class="form-control" id="emailFrom" name="emailFrom" type="email"  :class="[formErrors.emailFrom ? 'is-invalid' : '']" v-model.trim="formData.emailFrom" placeholder="test@test.com" autocomplete="email" focus-first>
+            <div class="invalid-feedback" v-if="formErrors.emailFrom">Please enter a valid email address.</div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="password">Gmail Password</label>
+            <input class="form-control" id="emailFromPassword" name="emailFromPassword" type="password"  :class="[formErrors.emailFromPassword ? 'is-invalid' : '']" v-model.trim="formData.emailFromPassword" placeholder="••••••••" autocomplete="new-password">
+            <div class="invalid-feedback" v-if="formErrors.emailFromPassword">Please enter a password .</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="email-address">Receiver email</label>
+            <input class="form-control" id="emailTo" name="emailTo" type="email"  :class="[formErrors.emailTo ? 'is-invalid' : '']" v-model.trim="formData.emailTo" placeholder="sturgeon@example.com" autocomplete="email">
+            <div class="invalid-feedback" v-if="formErrors.emailTo">Please enter a valid email address.</div>
+          </div>
+            <label for="reportToEmail">Enable email reporting: </label>
+            <input class="checkbox" id="reportToEmail" name="reportToEmail" type="checkbox"  :class="[formErrors.reportToEmail ? 'is-invalid' : '']" v-model.trim="formData.reportToEmail">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p class="text-danger" v-if="cloudError">An error occured while processing your request. Please check your information and try again.</p>
+        </div>
+
+        
+        <div class="col-sm-6">
+          <div class="form-group text-right">
+            <a class="btn btn-outline-info" href="/main">Cancel</a>
+            <ajax-button type="submit" :syncing="syncing" class="btn btn-dark">Save changes</ajax-button>
+          </div>
+        </div>
+      
+        
+      </div>
+    </ajax-form>
+  </div>
+</div>
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
