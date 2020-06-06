@@ -1,6 +1,6 @@
 # URL Tracker v 0.1 
 
-Change monitoring system that checks the content of web pages in different periods (hourly, daily, weekly, monthly) and detects if they were modified since the last check. Can be used to monitor S3, Azure, JS files, ...etc.   
+Change monitoring system that checks the content of web pages in different periods (hourly, daily, weekly, monthly) and detects if they were modified since the last check. It can be used to monitor S3, Azure, JS files, ...etc.   
 
 ### Motivation :battery:
 
