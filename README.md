@@ -72,11 +72,13 @@ Font Awesome|The world's most popular and easiest to use icon.|https://fontaweso
 
 ### Deployment :rocket:	
 
+**Note:** make sure to install mongodb on your OS. 
+
 ```
 root@ubuntu:~# git clone https://github.com/ahussam/url-tracker.git
 root@ubuntu:~# cd url-tracker
 root@ubuntu:/url-tracker# npm install 
-root@ubuntu:/url-tracker# sails lift 
+root@ubuntu:/url-tracker# nodejs app.js 
 ```
 
 Then go to [http://127.0.0.1:1337](http://127.0.0.1:1337) 
