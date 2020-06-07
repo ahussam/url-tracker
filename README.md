@@ -98,7 +98,7 @@ Insert admin user into mongodb
     "emailStatus": "confirmed",
     "emailChangeCandidate": "",
     "password": "$2a$10$dnfLLl.5HC16klqNPQ/44.I5BgO/p2JasxuuPTQITapp1cklzveLy",
-    "fullName": "Ryan Dahl1",
+    "fullName": "First User",
     "lastSeenAt": 1591379464868
 }
 ```
