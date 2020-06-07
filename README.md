@@ -98,9 +98,9 @@ For more information check this out: https://sailsjs.com/documentation/concepts/
 
 ------
 
-#### Default Credentials :key:	
+#### Default Credential :key:	
 
-** PLEASE MODIFIY THEM AFTER SIGN IN FOR THE FIRST TIME. ** 
+**PLEASE MODIFIY THEM AFTER SIGN IN FOR THE FIRST TIME.** 
 
  Email | Password 
 ------ | -------
