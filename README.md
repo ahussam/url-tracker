@@ -83,37 +83,24 @@ root@ubuntu:/url-tracker# nodejs app.js
 
 Then go to [http://127.0.0.1:1337](http://127.0.0.1:1337) 
 
-For deployment on a live server create a mongodb and uncomment the lines in `config/env/production.js`
+For deployment on a live server install MongoDB then replace the lines 50 & 51 in `config/env/production.js` with: 
 
 ```
-      adapter: 'sails-mysql',
-      url: 'mysql://user:password@host:port/database',
-```
-
-Insert admin user into mongodb
-
-```
-{
-    "emailAddress": "admin@example.com",
-    "emailStatus": "confirmed",
-    "emailChangeCandidate": "",
-    "password": "$2a$10$dnfLLl.5HC16klqNPQ/44.I5BgO/p2JasxuuPTQITapp1cklzveLy",
-    "fullName": "First User",
-    "lastSeenAt": 1591379464868
-}
+      adapter: 'sails-mongo',
+      url: 'mongodb://localhost/urlTracker', 
 ```
 
 For more information check this out: https://sailsjs.com/documentation/concepts/deployment/hosting 
 
 ------
 
-#### Test Credentials :key:	
+#### Default Credentials :key:	
 
  Email | Password 
 ------ | -------
 admin@example.com| 123456
-
 ------
+
 
 ### Screenshots :camera:	
 ![ss](/img/ss1.png)
