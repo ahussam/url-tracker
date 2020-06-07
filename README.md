@@ -100,6 +100,8 @@ For more information check this out: https://sailsjs.com/documentation/concepts/
 
 #### Default Credentials :key:	
 
+** PLEASE MODIFIY THEM AFTER SIGN IN FOR THE FIRST TIME. ** 
+
  Email | Password 
 ------ | -------
 admin@example.com| 123456
