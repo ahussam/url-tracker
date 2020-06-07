@@ -20,6 +20,10 @@ Change monitoring app that checks the content of web pages in different periods 
   - Email reporting.
   - Search in items. 
   - **Soon** Dynamic pages fetching. 
+  - **Soon** Web crawler.
+  - **Soon** Authenticated fetching.  
+  - **Soon** ...
+  - Suggest a feature! 
 
 ## Code Organisation :open_file_folder:	
 
