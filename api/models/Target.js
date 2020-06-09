@@ -6,11 +6,12 @@
 
 module.exports = {
 
-    attributes: {
-         
+  attributes: {
+
     description: {
       type: 'string',
-      example: 'Uber S3 bucket'
+      example: 'Uber S3 bucket',
+      required: true,
     },
 
     link: {
@@ -26,16 +27,23 @@ module.exports = {
       defaultsTo: 'unchanged',
     },
 
-    responseHash: {
-        type: 'string',
-        required: true,
-      },
+    keywords: {
+      type: 'string',
+    },
 
-      fetchEvery : {
-        type: 'string',
-        isIn: ['hour', 'day', 'week','month'],
-        defaultsTo: 'week',
-      },
+    acceptedChange: {
+      type: 'number',
+    },
+
+    cookie: {
+      type: 'string',
+    },
+
+    fetchEvery: {
+      type: 'string',
+      isIn: ['hour', 'day', 'week', 'month'],
+      defaultsTo: 'week',
+    },
 
 
 

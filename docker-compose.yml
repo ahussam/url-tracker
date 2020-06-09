@@ -1,0 +1,17 @@
+version: "3"
+services:
+    urlTracker:
+        build: .
+        container_name: "urlTracker"
+        restart: always
+        ports:
+            - "8080:1337"
+        links:
+            - mongodb
+        depends_on:
+            - mongodb
+    mongodb:
+        image: mongo:latest
+        container_name: "mongodb"
+        ports:
+            - "27018:27017"

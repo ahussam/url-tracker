@@ -1,53 +1,104 @@
 module.exports = {
 
-  // Cron fetch function 
+  // Cron fetch function
 
   run: async function (peroid) {
 
+    let fs = require('fs');
 
-    var targets = await Target.find({ fetchEvery: peroid });
-    var setting = await Setting.find();
+    let targets = await Target.find({ fetchEvery: peroid });
+    let setting = await Setting.find();
     setting = setting[0];
 
-    targets.forEach(async function (item) {
+    if (targets.length === 0) {
 
-      // Get the new response hash 
+      return;
+    }
 
-      let responseHash = await sails.helpers.sendRequest(item.link);
+    targets.forEach(async (target) => {
+
+      // Send new request
+
+      let response = await sails.helpers.sendRequest(target.link, target.cookie);
 
 
-      // Check if it matches the old one 
+      // Check if the response contains a keyword from the DB
 
-      if (responseHash !== item.responseHash) {
+      if (target.keywords !== '') {
 
-            sails.log("It works!");
-        //    sails.log(item);
-        
+        let keywords = target.keywords.split(',');
 
-        // Check if user want to be repoted via email 
+        keywords.forEach(async (keyword) => {
 
-        if(setting.reportToEmail){
+          if (response.indexOf(keyword) > -1) {
 
-         await sails.helpers.sendEmail(item.link);
+            await Target.updateOne({ id: target.id })
+              .set({
+                status: 'changed'
+              });
+
+            process.exit();
+
+          }
+
+        });
+      }
+
+
+      // Get the last response file
+
+      let responseFile = 'responses/' + target.id + '.txt';
+
+
+      var responseBody = fs.readFileSync(responseFile, 'utf8', (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+
+      // find number of differences between response and responseBody file
+
+      let acceptedChange = await sails.helpers.diffCheck(response, responseBody);
+
+      // sails.log(acceptedChange);
+
+
+      // Check if the new acceptedChange is higher than the user input
+
+      if (acceptedChange > target.acceptedChange) {
+
+
+        // Check if user want to be repoted via email
+
+        if (setting.reportToEmail) {
+
+          await sails.helpers.sendEmail(target.link);
 
         }
-        
-        // Update database with the new hash 
-        
-        var updatedTarget = await Target.updateOne({ id: item.id })
+
+        // Update database
+
+        var updatedTarget = await Target.updateOne({ id: target.id })
           .set({
-            responseHash: responseHash,
             status: 'changed'
           });
 
+        // Update response file with the new content
+
+        fs.writeFile(responseFile, response, (err) => {
+          if (err) {throw err;}
+          console.log('Response file is up-to-date.');
+        });
+
+
         if (updatedTarget) {
-           // sails.log('Updated');
+          // sails.log('Updated');
         }
 
       }
 
 
-    })
+    });
 
   }
 };

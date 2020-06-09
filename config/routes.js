@@ -47,13 +47,13 @@ module.exports.routes = {
   'PUT   /api/v1/account/update-password':            { action: 'account/update-password' },
   'PUT   /api/v1/account/update-profile':             { action: 'account/update-profile' },
 
-  'PUT   /api/v1/settings':                                { action: 'settings/update-settings' },
+  'PUT   /api/v1/settings':                           { action: 'settings/update-settings' },
 
-  'GET   /api/v1/link/getLinks':                                { action: 'link/get-links' ,csrf:false},
-  'POST   /api/v1/link':                                { action: 'link/add-link' },
-  'PUT   /api/v1/link/:id':                             { action: 'link/update-link', csrf:false },
-  'DELETE   /api/v1/link/:id':                             { action: 'link/delete-link', csrf:false},
+  'GET   /api/v1/link/getLinks':                      { action: 'link/get-links'},
+  'POST   /api/v1/link':                              { action: 'link/add-link' },
+  'PUT   /api/v1/link/:id':                           { action: 'link/update-link', csrf:false},
+  'DELETE   /api/v1/link/:id':                        { action: 'link/delete-link', csrf:false},
 
-  'PUT   /api/v1/entrance/login':                        { action: 'entrance/login' },
+  'PUT   /api/v1/entrance/login':                     { action: 'entrance/login' },
 
 };

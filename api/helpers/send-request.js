@@ -14,6 +14,12 @@ module.exports = {
       example: 'http://www.google.com',
       type: 'string',
     },
+
+    cookie: {
+      description: 'The target URL',
+      example: 'user_id=1234',
+      type: 'string',
+    },
   },
 
 
@@ -29,20 +35,22 @@ module.exports = {
   fn: async function (inputs, exits) {
 
     var request = require('request');
-    var crypto = require('crypto');
-    var hashBody = "";
 
     request.get({
-      url: inputs.link
-    }, function (error, response) {
+      url: inputs.link,
+      header: {
+        'cookie': inputs.cookie
+      }
+    }, (error, response) => {
       if (error) {
-        sails.log.error(error);
+        //sails.log.error(error);
         return;
       }
       else {
+        // Get response body
         // sails.log(response.body);
-        hashBody += crypto.createHash('md5').update(response.body).digest("hex");
-        return exits.success(hashBody);
+        return exits.success(response.body);
+
 
       }
     });

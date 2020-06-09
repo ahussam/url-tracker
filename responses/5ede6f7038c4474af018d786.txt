@@ -1,0 +1,283 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width initial-scale=1'>
+    <title>Mortal Kombat Mini XSS Challenge</title>
+    <style>
+        * {
+         
+        }
+
+        canvas {
+            display: block;
+        }
+
+        body {
+            text-align: center;
+            color: #17293a;
+        }
+
+        img {
+            display: none;
+        }
+
+        #ascii {
+            font-family: monospace;
+            font-size: 11px;
+            line-height: 70%;
+            display: block;
+            width: 100%;
+        }
+
+        #container {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .text {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="text">
+        <h1>Mortal Kombat Mini XSS Challenge</h1>
+        <h3>Rulz</h3>
+        <ul>
+            <li>Goal: <i>prompt(document.domain)</i></li>
+            <li>No hidden parameters.</li>
+            <li>Only modern browsers.</li>
+            <li>User interaction is not allowed.</li>
+        </ul>
+        <h3>Solvers</h3>
+        <ul>
+         <li><a href="https://twitter.com/SecurityMB">@SecurityMB</a></li>  
+         <li><a href="https://twitter.com/insertScript">@insertScript</a></li> 
+         <li><a href="https://twitter.com/RenwaX23">@RenwaX23</a></li> 
+         <li><a href="https://twitter.com/RootEval">@RootEval</a></li> 
+         <li><a href="https://twitter.com/shafigullin">@shafigullin</a></li> 
+        </ul>
+        <br>
+    </div>
+
+    <div id="player"></div>
+
+    <img src='sub.png' />
+    <div id='container'>
+        <pre id='ascii'></pre>
+    </div>
+
+
+    <script>
+    window.name = "";
+    
+        /** Art by Blazej Kozlowski
+          
+                               _..gggggppppp.._                       
+                          _.gd$$$$$$$$$$$$$$$$$$bp._                  
+                       .g$$$$$$P^^""j$$b""""^^T$$$$$$p.               
+                    .g$$$P^T$$b    d$P T;       ""^^T$$$p.            
+                  .d$$P^"  :$; `  :$;                "^T$$b.          
+                .d$$P'      T$b.   T$b                  `T$$b.        
+               d$$P'      .gg$$$$bpd$$$p.d$bpp.           `T$$b       
+              d$$P      .d$$$$$$$$$$$$$$$$$$$$bp.           T$$b      
+             d$$P      d$$$$$$$$$$$$$$$$$$$$$$$$$b.          T$$b     
+            d$$P      d$$$$$$$$$$$$$$$$$$P^^T$$$$P            T$$b    
+           d$$P    '-'T$$$$$$$$$$$$$$$$$$bggpd$$$$b.           T$$b   
+          :$$$      .d$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$p._.g.     $$$;  
+          $$$;     d$$$$$$$$$$$$$$$$$$$$$$$P^"^T$$$$P^^T$$$;    :$$$  
+         :$$$     :$$$$$$$$$$$$$$:$$$$$$$$$_    "^T$bpd$$$$,     $$$; 
+         $$$;     :$$$$$$$$$$$$$$bT$$$$$P^^T$p.    `T$$$$$$;     :$$$ 
+        :$$$      :$$$$$$$$$$$$$$P `^^^'    "^T$p.    lb`TP       $$$;
+        :$$$      $$$$$$$$$$$$$$$              `T$$p._;$b         $$$;
+        $$$;      $$$$$$$$$$$$$$;                `T$$$$:Tb        :$$$
+        $$$;      $$$$$$$$$$$$$$$                        Tb    _  :$$$
+        :$$$     d$$$$$$$$$$$$$$$.                        $b.__Tb $$$;
+        :$$$  .g$$$$$$$$$$$$$$$$$$$p...______...gp._      :$`^^^' $$$;
+         $$$;  `^^'T$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$p.    Tb._, :$$$ 
+         :$$$       T$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$b.   "^"  $$$; 
+          $$$;       `$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$b      :$$$  
+          :$$$        $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$;     $$$;  
+           T$$b    _  :$$`$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$;   d$$P   
+            T$$b   T$g$$; :$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  d$$P    
+             T$$b   `^^'  :$$ "^T$$$$$$$$$$$$$$$$$$$$$$$$$$$ d$$P     
+              T$$b        $P     T$$$$$$$$$$$$$$$$$$$$$$$$$;d$$P      
+               T$$b.      '       $$$$$$$$$$$$$$$$$$$$$$$$$$$$P       
+                `T$$$p.   bug    d$$$$$$$$$$$$$$$$$$$$$$$$$$P'        
+                  `T$$$$p..__..g$$$$$$$$$$$$$$$$$$$$$$$$$$P'          
+                    "^$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$^"            
+                       "^T$$$$$$$$$$$$$$$$$$$$$$$$$$P^"               
+                           """^^^T$$$$$$$$$$P^^^"""
+        
+        **/
+
+        // Challenge starts here 
+
+        let userObject = new URL(location).searchParams.get('userObject') || '{"name":"Scorpion", "link":"/en/mk/scorpion", "redirect":0}';
+
+        userObject = userObject.replace(/[()`%;=<>&j\\]/g, function (a) {
+            return `&#${a.codePointAt(0)};`;
+        });
+
+        userObject = JSON.parse(userObject);
+    
+        
+        let freezedName = userObject['name'];
+        let freezedLink = userObject['link'];
+       
+        let test_value = new URL(location).searchParams.get('test_value') || Math.random() + '1';
+        
+        test_value = test_value.replace(/\"/g,'');
+        
+        // Subzero Magic 
+        Object.freeze(userObject);
+
+        // immutability tests
+        // None of these changes will be implemented, otherwise subzero you are fired! 
+
+        eval(`
+       
+       userObject['name'] = "${test_value}";
+       userObject['name'][0] = "${test_value}";
+       userObject.name = "${test_value}";
+       userObject.name = userObject.name.toString() + "${test_value}";
+
+       userObject['link'] = "${test_value}";
+       userObject['link'][0] = "${test_value}";
+       userObject.link = "${test_value}";
+       userObject.link = userObject.link.toString() + "${test_value}";
+
+       userObject['redirect'] = "${test_value}";
+       userObject['redirect'][0] = "${test_value}";
+       userObject.redirect = "${test_value}";
+       userObject.redirect = userObject.redirect.toString() + "${test_value}";
+     
+       `);
+
+        // Check if the object is immutable 
+        if (userObject['name'] !== freezedName || userObject['link'] !== freezedLink) {
+
+            throw console.error("Object has not been freezed");
+            // Zubzero loses 
+            exit();
+
+
+        }
+
+        if (userObject['redirect']) {
+
+
+            var url = userObject['link'].toString().replace(/ /g, '');
+                
+            if (url.indexOf("javascript") === 0 || url.indexOf("data") === 0) {
+
+                throw console.error("Invaild URL scheme");
+                exit();
+
+            }
+
+            document.location = url;
+
+        } else {
+
+            document.getElementById("player").innerHTML = `Name: ${encodeURI(userObject["name"])} Link: ${encodeURI(userObject["link"])}`;
+
+        }
+
+
+
+
+
+
+
+        /**
+        Ascii art by https://codepen.io/gbnikolov 
+        You have to understand how this code works in order to solve the challenge! 
+        Just kidding it has nothing to do with the solution :D 
+        **/
+
+        window.onload = function () {
+            var sprite = document.querySelector('img'),
+                W = sprite.width,
+                H = sprite.height,
+                tcanvas = document.createElement('canvas'),
+                tctx = tcanvas.getContext('2d'),
+                ascii = document.querySelector('#ascii'),
+                character = '',
+                string = '',
+                frames = 0,
+                container,
+                frame_width = 0;
+
+            tcanvas.width = W;
+            tcanvas.height = H;
+            tctx.fillStyle = '#fff';
+            tctx.fillRect(0, 0, W, H);
+
+            tctx.drawImage(sprite, 0, 0, W, H);
+
+            var pixels = tctx.getImageData(0, 0, W, H),
+                colorData = pixels.data,
+                r, g, b, gray;
+
+            for (var i = 0; i < colorData.length; i += 4) {
+                r = colorData[i];
+                g = colorData[i + 1];
+                b = colorData[i + 2];
+                gray = r * 0.2126 + g * 0.7152 + b * 0.0722;
+                colorData[i] = colorData[i + 1] = colorData[i + 2] = gray;
+                if (gray > 250) character = ' ';
+                else if (gray > 230) character = "'";
+                else if (gray > 200) character = ":";
+                else if (gray > 175) character = "*";
+                else if (gray > 150) character = "+";
+                else if (gray > 125) character = "#";
+                else if (gray > 50) character = "W";
+                else character = '@';
+
+                string += character;
+
+                if (i !== 0 && (i / 4) % W === 0) {
+                    ascii.appendChild(document.createTextNode(string));
+                    ascii.appendChild(document.createElement('br'));
+                    string = '';
+                }
+
+            }
+            frames = 8;
+            container = document.getElementById("container");
+            frame_width = parseInt(window.getComputedStyle(container).width) / frames;
+            container.style.width = frame_width + "px";
+
+            ascii.style.marginLeft = "0";
+
+            container.style.width = frame_width + "px";
+
+            ascii.style.marginLeft = 0;
+
+            setInterval(loop, 1000 / 10);
+
+            function loop() {
+                var currentMarginLeft = parseFloat(ascii.style.marginLeft);
+                if (currentMarginLeft === frame_width * (frames - 1) * -1) {
+                    ascii.style.marginLeft = '0px';
+                } else {
+                    ascii.style.marginLeft = (currentMarginLeft - frame_width) + 'px';
+                }
+            }
+
+            tctx.putImageData(pixels, 0, 0);
+            tctx.clearRect(0, 0, W, H);
+            sprite.parentNode.insertBefore(tcanvas, sprite);
+        }
+
+
+
+    </script>
+</body>
+
+</html>

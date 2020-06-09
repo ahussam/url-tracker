@@ -31,13 +31,13 @@
         <tr v-for="(target,index) in filteredTargetsList" :index="index" v-bind:style= "[target.status === 'changed' ? {'background-color':'#FF6666'} : {'background-color':'#fff'}]">
           <th scope="row">{{index}}</th>
           <td>{{target.description}}</td>
-          <td>{{target.link}}</td>
+          <td><a v-bind:href="target.link">{{target.link}}</a></td>
           <td>{{target.fetchEvery}}</td>
           <td>
             <button type="button" class="btn btn-danger" v-if="target.status === 'unchanged'" @click="removeRow(index)"
-              id="test">Delete</button>
+              id="deleteButton">Delete</button>
             <button type="button" class="btn btn-primary" v-else-if="target.status === 'changed'" @click="markAsSeen(index)"
-              id="test">Clear</button>
+              id="clearButton">Clear</button>
 
           </td>
         </tr>
@@ -55,6 +55,9 @@
     <div class="modal-header">
       <h2 class="modal-title">Add new target</h2>
       <p>Fill the following form to add new link the the cron job.</p>
+      <p>
+        <a href="https://github.com/ahussam/url-tracker#how-to-use-arrow_forward">Learn how to set these settings</a>
+      </p>
       <hr />
     </div>
 
@@ -68,9 +71,17 @@
               <div class="invalid-feedback" v-if="formErrors.description">Please enter a short description.</div>
             </div>
             <div class="form-group">
-              <label for="password">Link of file</label>
-              <input class="form-control" id="link" name="link" type="url"  :class="[formErrors.link ? 'is-invalid' : '']" v-model.trim="formData.link" placeholder="https://s3.amazonaws.com/target_us/login.js" autocomplete="off">
+              <label for="link">Link of page</label>
+              <input class="form-control" id="link" name="link" type="url"  :class="[formErrors.link ? 'is-invalid' : '']" v-model.trim="formData.link" placeholder="https://www.mytarget.com/target_us/login.php" autocomplete="off">
               <div class="invalid-feedback" v-if="formErrors.link">Please enter a vaild url .</div>
+            </div>
+            <div class="form-group">
+              <label for="keywords">Keywords</label>
+              <input class="form-control" id="keywords" name="keywords" type="text"  v-model.trim="formData.keywords" placeholder="404 not found, feature, new addon" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="cookie">Cookie</label>
+              <input class="form-control" id="cookie" name="cookie" type="text"  v-model.trim="formData.cookie" placeholder="userid=123; csrf=abc_123" autocomplete="off">
             </div>
           </div>
           <div class="col-sm-3">
@@ -82,6 +93,10 @@
                 <option value="week">Week</option>
                 <option value="month">Month</option>
               </select>
+            </div>
+            <div class="form-group">
+              <label for="acceptedChange">Tolerance</label>
+              <input class="form-control" id="acceptedChange" name="acceptedChange" type="text"  v-model.trim="formData.acceptedChange" placeholder="50" autocomplete="off">
             </div>
           </div>
         </div>

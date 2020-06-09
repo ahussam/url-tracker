@@ -10,7 +10,7 @@ module.exports.crontab = {
         var jsonArray = [];
 
 
-     //   jsonArray.push({ interval: '* * * * *', method: 'test' });
+        jsonArray.push({ interval: '* * * * *', method: 'test' });
 
         // Every hour fetching 
         jsonArray.push({ interval: '0 * * * *', method: 'fetchResponseHour' });
@@ -48,13 +48,13 @@ module.exports.crontab = {
 
     },
   
-    /*
+    
     test: function(){
 
-        require('../crontab/fetchResponse.js').run('min');
+        require('../crontab/fetchResponse.js').run('hour');
 
     }
-     */
+     
 
 
 

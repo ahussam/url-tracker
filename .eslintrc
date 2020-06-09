@@ -40,7 +40,8 @@
 
     // Models:
     "User": true,
-    "Target":true
+    "Target":true,
+    "Setting":true
     
     // …and any others.
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

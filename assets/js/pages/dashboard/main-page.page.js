@@ -1,11 +1,11 @@
-parasails.registerPage("main", {
+parasails.registerPage('main', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
-    modal: "",
+    modal: '',
     pageLoadedAt: Date.now(),
-    search: "",
+    search: '',
     targets: [],
     syncing: false,
 
@@ -40,7 +40,7 @@ parasails.registerPage("main", {
   beforeMount: function () {
     // Attach any initial data from the server.
     _.extend(this, SAILS_LOCALS);
-    console.log(this.targets);
+    // console.log(this.targets);
   },
   mounted: async function () {
     //  console.log(this.targets);
@@ -55,11 +55,11 @@ parasails.registerPage("main", {
     // `virtualPageSlug` is determined by the regular expression above, which
     // corresponds with `:unused?` in the server-side route for this page.
     switch (virtualPageSlug) {
-      case "add":
-        this.modal = "add";
+      case 'add':
+        this.modal = 'add';
         break;
       default:
-        this.modal = "";
+        this.modal = '';
     }
   },
 
@@ -75,8 +75,8 @@ parasails.registerPage("main", {
       // > to make sure the spinner stays there until the page navigation finishes.)
       this.syncing = true;
       this.updateTable();
-      setTimeout(()=>{location = "/main";},2000);
-      
+      setTimeout(() => { location = '/main'; }, 2000);
+
     },
 
     handleParsingForm: function () {
@@ -96,8 +96,11 @@ parasails.registerPage("main", {
       this.formErrors = {};
 
       var argins = this.formData;
-      console.log(argins);
+
+      //  console.log(argins);
+
       // Validate description
+
       if (!argins.description) {
         this.formErrors.description = true;
       }
@@ -108,7 +111,7 @@ parasails.registerPage("main", {
         this.formErrors.link = true;
       }
 
-      // Validate safe url 
+      // Validate safe url
 
       if (!validURL(argins.link)) {
         this.formErrors.link = true;
@@ -117,16 +120,17 @@ parasails.registerPage("main", {
       // If there were any issues, they've already now been communicated to the user,
       // so simply return undefined.  (This signifies that the submission should be
       // cancelled.)
+
       if (Object.keys(this.formErrors).length > 0) {
         return;
       }
-    
+
       return argins;
     },
 
 
     open: async function () {
-      this.goto("/main/add");
+      this.goto('/main/add');
       // Or, without deep links, instead do:
       // ```
       // this.modal = 'example';
@@ -134,7 +138,7 @@ parasails.registerPage("main", {
     },
 
     close: async function () {
-      this.goto("/main");
+      this.goto('/main');
       // Or, without deep links, instead do:
       // ```
       // this.modal = '';
@@ -144,12 +148,12 @@ parasails.registerPage("main", {
     removeRow: async function (index) {
 
 
-      linkID = this.targets[index].id;
+      let linkID = this.targets[index].id;
       console.log(linkID);
-      fetch("api/v1/link/" + linkID, {
-        method: "DELETE",
+      fetch('api/v1/link/' + linkID, {
+        method: 'DELETE',
       }).then(() => {
-        console.log('Deleted')
+        console.log('Deleted');
       });
 
       console.log(this.targets[index].id);
@@ -159,44 +163,43 @@ parasails.registerPage("main", {
 
     markAsSeen: async function (index) {
 
-      linkID = this.targets[index].id;
+      let linkID = this.targets[index].id;
 
-      fetch("api/v1/link/" + linkID, {
-        method: "PUT",
+      fetch('api/v1/link/' + linkID, {
+        method: 'PUT',
       }).then(() => {
         // console.log('changed')
       });
 
-      this.targets[index].status = "unchanged";
+      this.targets[index].status = 'unchanged';
 
     },
 
     updateTable: async function () {
-      
-      if(!(this.me.id)){
 
-        return ;
 
-      }
+      // Check if user is signed in
+      if (this.me.id) {
 
-      currentLink = new URL(location.href)
+        let currentLink = new URL(location.href);
 
-      if(currentLink.href.indexOf("/add") !== -1 ){
+        if (currentLink.href.indexOf('/add') !== -1) {
 
-     //   console.log('ping');
+          //   console.log('ping');
 
-        return ; 
-      }
+          return;
+        }
 
-      let data = await getData("api/v1/link/getLinks");
-        console.log(data)
+        let data = await getData('api/v1/link/getLinks');
+        console.log(data);
 
-      this.targets = data;
+        this.targets = data;
 
-      async function getData(url) {
-        const response = await fetch(url);
+        async function getData(url) {
+          const response = await fetch(url);
 
-        return response.json();
+          return response.json();
+        }
       }
     },
   },

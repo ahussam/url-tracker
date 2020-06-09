@@ -28,39 +28,40 @@ module.exports = {
   fn: async function (inputs) {
 
 
-    var nodemailer = require("nodemailer");
-    
-    var Setting = await Setting.findOne();
+    var nodemailer = require('nodemailer');
+
+    // eslint-disable-next-line no-use-before-define
+    let Setting = await Setting.findOne();
     Setting = Setting[0];
 
-    // The SMTP server settings 
+    // The SMTP server settings
     let transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
       auth: {
         user: Setting.emailFrom,
         pass: Setting.emailFromPassword
       }
-    })
+    });
 
 
     // Email options
     let mailOptions = {
       from: Setting.emailFrom,
       to: Setting.emailTo,
-      subject: "A new web page has changed!",
-      text: inputs.link + "has changed!",
-      html: inputs.link + "<b>has changed!</b>"
-    }
+      subject: 'A new web page has changed!',
+      text: inputs.link + 'has changed!',
+      html: inputs.link + '<b>has changed!</b>'
+    };
 
-    // Send! 
+    // Send!
 
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        console.log("error occurred", err)
+        console.log('error occurred', err);
       } else {
-        console.log("email sent", info)
+        console.log('email sent', info);
       }
-    })
+    });
 
 
   }
