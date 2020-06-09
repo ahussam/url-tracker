@@ -2,11 +2,11 @@ module.exports = {
 
   // Cron fetch function
 
-  run: async function (peroid) {
+  run: async function (period) {
 
     let fs = require('fs');
 
-    let targets = await Target.find({ fetchEvery: peroid });
+    let targets = await Target.find({ fetchEvery: period });
     let setting = await Setting.find();
     setting = setting[0];
 
