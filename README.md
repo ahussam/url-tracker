@@ -20,7 +20,7 @@ Change monitoring app that checks the content of web pages in different periods 
   * If you want to track an authenticated page add your cookies in the **cookie** text box.
   * Select the peroid that you want to check the page at.
   * In **tolerance** set the accepted differences between the previous fetch and the next one by characters `e.g: 100`. **Note:** if you
-want to ingore minors changes like CSRF tokens, cache tokens , cookie tracking set this parameter. In case you leave it blank the server will ship 2 requests and comapres the differences between them and sets the differences (acceptedChange) in DB. 
+want to ingore minors changes like CSRF tokens, cache tokens, cookie tracking set this parameter. In case you leave it blank the server will ship 2 requests and comapres the differences between them and sets the differences (acceptedChange) in DB. 
   * Then click add link button. You should see the new target in the URLs list. 
   
   
