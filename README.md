@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/ahussam/url-tracker.svg?branch=master)](https://travis-ci.com/ahussam/url-tracker)
 [![License](https://badgen.net/badge/license/MIT/green)](https://badgen.net/badge/license/MIT/green)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/ahussam/url-tracker/)
-[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/ahussam/url-tracker/issues/)
+[![GitHub issues](https://img.shields.io/github/issues/ahussam/url-tracker.svg)](https://github.com/ahussam/url-tracker/issues/)
 
 
 Change monitoring app that checks the content of web pages in different periods (hourly, daily, weekly, monthly) and detects if they were modified since the last check. It can be used to monitor S3, Azure, JS files, ...etc.   
