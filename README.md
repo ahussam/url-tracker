@@ -1,7 +1,10 @@
-# URL Tracker v 0.2.0
+# URL Tracker v 0.3.0
 
 [![Build Status](https://travis-ci.com/ahussam/url-tracker.svg?branch=master)](https://travis-ci.com/ahussam/url-tracker)
 [![License](https://badgen.net/badge/license/MIT/green)](https://badgen.net/badge/license/MIT/green)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/ahussam/url-tracker/)
+[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/ahussam/url-tracker/issues/)
+
 
 Change monitoring app that checks the content of web pages in different periods (hourly, daily, weekly, monthly) and detects if they were modified since the last check. It can be used to monitor S3, Azure, JS files, ...etc.   
 
@@ -38,7 +41,8 @@ want to ingore minors changes like CSRF tokens, cache tokens, cookie tracking se
   - Search in items. 
   - Dynamic pages fetching. 
   - Authenticated fetching.  
-  - Web crawler **soon** 
+  - Diff checker 
+  - Bot reporting (Telegram, Slack, ...etc) **SOON!**
   - Suggest a feature! 
 
 ## Code Organisation :open_file_folder:	
@@ -137,6 +141,8 @@ admin@example.com| 123456
 
 
 ### Screenshots :camera:	
+![ss](/img/ss0.png)
+
 ![ss](/img/ss1.png)
 
 ![ss](/img/ss2.png)
