@@ -7,7 +7,7 @@ module.exports.crontab = {
   crons: function () {
     var jsonArray = [];
 
-    jsonArray.push({ interval: '* * * * *', method: 'fetchResponseHour' });
+    // jsonArray.push({ interval: '* * * * *', method: 'fetchResponseHour' });
 
     // Every hour fetching
     jsonArray.push({ interval: '0 * * * *', method: 'fetchResponseHour' });
