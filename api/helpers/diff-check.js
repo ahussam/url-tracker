@@ -24,7 +24,7 @@ module.exports = {
   exits: {
 
     success: {
-      
+
     },
 
   },
@@ -33,11 +33,11 @@ module.exports = {
   fn: async function (inputs,exits) {
 
     let leven = require('leven');
-    
+
     let acceptedChange = leven(inputs.res1, inputs.res2);
-    
+
     return exits.success(acceptedChange);
-   
+
 
   }
 

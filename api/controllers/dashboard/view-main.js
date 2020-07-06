@@ -18,7 +18,7 @@ module.exports = {
 
 
   fn: async function () {
-    
+
     var targets = await Target.find();
 
     return {targets};

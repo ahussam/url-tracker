@@ -17,10 +17,11 @@ module.exports = {
     var destroyedRecord = await Target.destroyOne({ id: id });
 
     if (destroyedRecord) {
-      return this.res.send("1");
+
+      return this.res.send('1');
 
     } else {
-      return this.res.send("0");
+      return this.res.send('0');
 
     }
 

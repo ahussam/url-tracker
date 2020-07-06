@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Error><Code>NoSuchBucket</Code><Message>The specified bucket does not exist</Message><BucketName>gitlab_production_us</BucketName><RequestId>CD49E35AD6D41DF5</RequestId><HostId>0F8zVCn4Q9dDhB/CtUGbm6J2nL7qdZOSl+WhZm+X2MToFHCg8MFkIw9KhjUQ+xbr/SuyoFVmcn0=</HostId></Error>

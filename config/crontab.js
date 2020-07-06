@@ -3,11 +3,11 @@ module.exports.crontab = {
       Crontab control
       Note: if you want to modify the cron times you can find them here.
    */
-  
+
   crons: function () {
     var jsonArray = [];
 
-    // jsonArray.push({ interval: '* * * * *', method: 'test' });
+    jsonArray.push({ interval: '* * * * *', method: 'fetchResponseHour' });
 
     // Every hour fetching
     jsonArray.push({ interval: '0 * * * *', method: 'fetchResponseHour' });

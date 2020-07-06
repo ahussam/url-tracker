@@ -27,7 +27,7 @@ module.exports = {
 
 
   fn: async function (inputs) {
-    
+
 
     let emailfrom = inputs.emailFrom;
     let emailfrompassword = inputs.emailFromPassword;
@@ -43,11 +43,11 @@ module.exports = {
         }).fetch();
 
     if (updatedRecords) {
-      return this.res.send("1");
+      return this.res.send('1');
 
     } else {
 
-      return this.res.send("0");
+      return this.res.send('0');
 
     }
 
