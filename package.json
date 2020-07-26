@@ -6,7 +6,7 @@
   "keywords": [],
   "dependencies": {
     "@sailshq/connect-redis": "^3.2.1",
-    "@sailshq/lodash": "^3.10.3",
+    "@sailshq/lodash": "^3.10.4",
     "@sailshq/socket.io-redis": "^5.2.0",
     "crypto": "^1.0.1",
     "leven": "^3.1.0",
