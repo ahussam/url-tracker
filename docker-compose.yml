@@ -1,8 +1,8 @@
 version: "3"
 services:
-    urlTracker:
+    urltracker:
         build: .
-        container_name: "urlTracker"
+        container_name: "urltracker"
         restart: always
         ports:
             - "8080:1337"
