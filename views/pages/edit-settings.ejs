@@ -7,8 +7,22 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
+            <label for="telegram">Telegram API Token</label>
+            <input class="form-control" id="telegramToken" name="telegramToken" type="text"  :class="[formErrors.telegramToken ? 'is-invalid' : '']" v-model.trim="formData.telegramToken" placeholder="Bot Token" autocomplete="" focus-first>
+            <div class="invalid-feedback" v-if="formErrors.telegram">Please enter a valid Telegram bot token.</div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="telegram">Telegram Chat ID</label>
+            <input class="form-control" id="telegramChatID" name="telegramChatID" type="text"  :class="[formErrors.telegramChatID ? 'is-invalid' : '']" v-model.trim="formData.telegramChatID" placeholder="Chat ID" autocomplete="" >
+            <div class="invalid-feedback" v-if="formErrors.telegramChatID">Please enter a valid chat id.</div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
             <label for="email-from">Sender Gmail</label>
-            <input class="form-control" id="emailFrom" name="emailFrom" type="email"  :class="[formErrors.emailFrom ? 'is-invalid' : '']" v-model.trim="formData.emailFrom" placeholder="test@test.com" autocomplete="email" focus-first>
+            <input class="form-control" id="emailFrom" name="emailFrom" type="email"  :class="[formErrors.emailFrom ? 'is-invalid' : '']" v-model.trim="formData.emailFrom" placeholder="test@test.com" autocomplete="email">
             <div class="invalid-feedback" v-if="formErrors.emailFrom">Please enter a valid email address.</div>
           </div>
         </div>
@@ -26,9 +40,21 @@
             <input class="form-control" id="emailTo" name="emailTo" type="email"  :class="[formErrors.emailTo ? 'is-invalid' : '']" v-model.trim="formData.emailTo" placeholder="sturgeon@example.com" autocomplete="email">
             <div class="invalid-feedback" v-if="formErrors.emailTo">Please enter a valid email address.</div>
           </div>
+          </div>
+  
+
+          <div class="col-sm-6">
+            <div class="form-group">
             <label for="reportToEmail">Enable email reporting: </label>
             <input class="checkbox" id="reportToEmail" name="reportToEmail" type="checkbox"  :class="[formErrors.reportToEmail ? 'is-invalid' : '']" v-model.trim="formData.reportToEmail">
-        </div>
+            <br>
+            <label for="reportToTelegram">Enable Telegram reporting: </label>
+            <input class="checkbox" id="reportToTelegram" name="reportToTelegram" type="checkbox"  :class="[formErrors.reportToTelegram ? 'is-invalid' : '']" v-model.trim="formData.reportToTelegram">
+            </div>
+            </div>
+        
+
+
       </div>
       <div class="row">
         <div class="col-sm-6">

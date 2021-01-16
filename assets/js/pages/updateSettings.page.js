@@ -15,7 +15,7 @@ parasails.registerPage('edit-settings', {
 
     // Server error state for the form
     cloudError: '',
-    
+
 
   },
 
@@ -30,7 +30,11 @@ parasails.registerPage('edit-settings', {
     this.formData.emailFrom = this.emailFrom;
     this.formData.emailFromPassword = this.emailFromPassword;
     this.formData.emailTo = this.emailTo;
-    this.formData.reportToEmail = this.reportToEmail; 
+    this.formData.reportToEmail = this.reportToEmail;
+    this.formData.telegramToken = this.telegramToken;
+    this.formData.telegramChatID = this.telegramChatID;
+    this.formData.reportToTelegram = this.reportToTelegram;
+
   },
   mounted: async function() {
     // console.log(this.test)
@@ -60,16 +64,16 @@ parasails.registerPage('edit-settings', {
         this.formErrors.emailFrom = true;
       }
 
-      // Validate password 
+      // Validate password
       if(!argins.emailFromPassword) {
         this.formErrors.emailFromPassword = true;
       }
 
 
-         // Validate email to 
-         if(!argins.emailTo) {
-          this.formErrors.emailTo = true;
-        }
+      // Validate email to
+      if(!argins.emailTo) {
+        this.formErrors.emailTo = true;
+      }
 
       // If there were any issues, they've already now been communicated to the user,
       // so simply return undefined.  (This signifies that the submission should be

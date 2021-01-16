@@ -37,8 +37,6 @@ module.exports = {
                 status: 'changed'
               });
 
-            process.exit();
-
           }
 
         });
@@ -81,7 +79,7 @@ module.exports = {
         // Save diffHighlight into file
 
         fs.writeFile(diffFile, diff, (err) => {
-          if (err) {throw err;}
+          if (err) { throw err; }
           console.log('Saved!');
         });
 
@@ -89,9 +87,13 @@ module.exports = {
         // Check if user want to be repoted via email
 
         if (setting.reportToEmail) {
-
           await sails.helpers.sendEmail(target.link);
+        }
 
+        // Check if user want to be reported via telegram
+
+        if (setting.reportToEmail) {
+          await sails.helpers.sendTelegram(target.link, acceptedChange);
         }
 
         // Update database
@@ -104,7 +106,7 @@ module.exports = {
         // Update response file with the new content
 
         fs.writeFile(responseFile, response, (err) => {
-          if (err) {throw err;}
+          if (err) { throw err; }
           console.log('Response file is up-to-date.');
         });
 

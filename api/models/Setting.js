@@ -35,6 +35,22 @@ module.exports = {
       defaultsTo: false,
     },
 
+    reportToTelegram: {
+      type: 'boolean',
+      defaultsTo: false,
+    },
+
+    telegramToken: {
+      type: 'string',
+      defaultsTo: '',
+    },
+
+    telegramChatID: {
+      type: 'string',
+      defaultsTo: '',
+    },
+
+
 
 
   }

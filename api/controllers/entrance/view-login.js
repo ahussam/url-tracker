@@ -30,10 +30,10 @@ module.exports = {
     if (users.length === 0) {
 
       var createFirstUser = await User.create({
-        emailAddress: "admin@example.com",
-        emailStatus: "confirmed",
-        password: "$2a$10$dnfLLl.5HC16klqNPQ/44.I5BgO/p2JasxuuPTQITapp1cklzveLy",
-        fullName: "First User",
+        emailAddress: 'admin@example.com',
+        emailStatus: 'confirmed',
+        password: '$2a$10$dnfLLl.5HC16klqNPQ/44.I5BgO/p2JasxuuPTQITapp1cklzveLy',
+        fullName: 'First User',
       }).fetch();
 
       if (createFirstUser) {

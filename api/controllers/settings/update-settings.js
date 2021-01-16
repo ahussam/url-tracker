@@ -23,6 +23,18 @@ module.exports = {
     reportToEmail: {
       type: 'boolean'
     },
+
+    telegramToken: {
+      type: 'string'
+    },
+
+    telegramChatID: {
+      type: 'string'
+    },
+
+    reportToTelegram: {
+      type: 'boolean'
+    }
   },
 
 
@@ -32,14 +44,19 @@ module.exports = {
     let emailfrom = inputs.emailFrom;
     let emailfrompassword = inputs.emailFromPassword;
     let emailto = inputs.emailTo;
-    let reporttoemail = inputs.reportToEmail;
+    let reportToEmail = inputs.reportToEmail;
+    let telegramToken = inputs.telegramToken;
+    let telegramChatID = inputs.telegramChatID;
+    let reportToTelegram = inputs.reportToTelegram;
+
 
     var updatedRecords =
       await Setting.update({ app: 'this' }).set(
 
         {
           emailFrom: emailfrom, emailFromPassword: emailfrompassword,
-          emailTo: emailto, reportToEmail: reporttoemail
+          emailTo: emailto, reportToEmail: reportToEmail, telegramToken: telegramToken,
+          telegramChatID: telegramChatID, reportToTelegram: reportToTelegram
         }).fetch();
 
     if (updatedRecords) {

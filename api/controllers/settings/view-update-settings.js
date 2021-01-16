@@ -47,13 +47,19 @@ module.exports = {
     let emailFromPassword = data.emailFromPassword;
     let emailTo = data.emailTo;
     let reportToEmail = data.reportToEmail;
+    let reportToTelegram = data.reportToTelegram;
+    let telegramToken = data.telegramToken;
+    let telegramChatID = data.telegramChatID;
 
 
     return {
       emailFrom: emailFrom,
       emailFromPassword: emailFromPassword,
       emailTo: emailTo,
-      reportToEmail:reportToEmail
+      reportToEmail:reportToEmail,
+      reportToTelegram: reportToTelegram,
+      telegramToken: telegramToken,
+      telegramChatID:telegramChatID
     };
   }
 
