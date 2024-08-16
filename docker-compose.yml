@@ -1,17 +1,24 @@
-version: "3"
+version: '3.8'
+
 services:
-    urltracker:
-        build: .
-        container_name: "urltracker"
-        restart: always
-        ports:
-            - "8080:1337"
-        links:
-            - mongodb
-        depends_on:
-            - mongodb
-    mongodb:
-        image: mongo:latest
-        container_name: "mongodb"
-        ports:
-            - "27018:27017"
+  sails-app:
+    build: .
+    ports:
+      - "1337:1337"
+    environment:
+      NODE_ENV: production
+      MONGO_URL: mongodb://mongo:27017/sailsdb
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
