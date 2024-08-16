@@ -1,165 +1,142 @@
-# URL Tracker v 0.3.0
+# URL Tracker v0.5.0
 
-[![Build Status](https://travis-ci.com/ahussam/url-tracker.svg?branch=master)](https://travis-ci.com/ahussam/url-tracker)
+[![Build Status](https://travis-ci.org/ahussam/url-tracker.svg?branch=master)](https://travis-ci.org/ahussam/url-tracker)
 [![License](https://badgen.net/badge/license/MIT/green)](https://badgen.net/badge/license/MIT/green)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/ahussam/url-tracker/)
 [![GitHub issues](https://img.shields.io/github/issues/ahussam/url-tracker.svg)](https://github.com/ahussam/url-tracker/issues/)
 
+URL Tracker is a robust and scalable web application designed to monitor and track URLs, log changes, and provide detailed insights into the status and behavior of various web resources. Built on top of Sails.js, this application is perfect for tracking URLs for uptime, content changes, and performance monitoring.
 
-Change monitoring app that checks the content of web pages in different periods (hourly, daily, weekly, monthly) and detects if they were modified since the last check. It can be used to monitor S3, Azure, JS files, ...etc.   
+## Features
 
-### Motivation :battery:
+- **URL Monitoring**: Keep track of various URLs and monitor their status over time with the capability of adding single or multiple URLs per submission.
+- **Change Detection**: Detect and log changes to the content of tracked URLs.
+- **Automated Requests**: Schedule and automate requests to URLs to periodically check their status (hourly, daily, weekly, monthly).
+- **Detailed Logs**: Store and view logs of URL changes and request statuses.
+- **User Login**: Use email and password to log in. 
+- **Notifications**: Send notifications based on specific events like content changes on a Telegram bot.
 
-* Blog Post: https://ahussam.me/careem-aws-s3-bucket-takeover/
+## How It Works
 
+URL Tracker works by sending HTTP requests to specified URLs at regular intervals. It compares the response content to previous results and logs any differences. The application can be extended with custom notifications, data processing, and more, making it versatile for various use cases.
 
-## How to use :arrow_forward:
+### Default Credentials
 
-* If you want to track changes on a web page click add new link button on the right side (You must be logged in): 
-  * Fill **description** textbox with any text that describes the target `e.g: Uber internal system login page`.  
-  * Write the target link in **Link of page** textbox `e.g: http://s3.amazonaws.com/careemcrm/`. 
-  * Write keywords that will be tracked on the page if they appear you will get noticed `e.g: 404, new feature, not found`
-  **Note:** They **MUST NOT** be there in the first request. 
-  * If you want to track an authenticated page add your cookies in the **cookie** text box.
-  * Select the peroid that you want to check the page at.
-  * In **tolerance** set the accepted differences between the previous fetch and the next one by characters `e.g: 100`. **Note:** if you
-want to ingore minors changes like CSRF tokens, cache tokens, cookie tracking set this parameter. In case you leave it blank the server will ship 2 requests and comapres the differences between them and sets the differences (acceptedChange) in DB. 
-  * Then click add link button. You should see the new target in the URLs list. 
-  
-  
-* If you want to get notifications via email: 
-   * Create a gmail account. 
-   * Go to `User Control > Settings ` then set the gmail account that will send the notificaiton (**DON'T USE YOUR PRIVATE EMAIL**).
-   * Write your private email in the **receiver** textbox. 
-   * Click save changes button. 
-  
-## Features :ballot_box_with_check:	
+Upon initial setup, the application comes with default admin credentials:
 
-  - Login system. 
-  - 4 periods checks. 
-  - Email reporting.
-  - Search in items. 
-  - Dynamic pages fetching. 
-  - Authenticated fetching.  
-  - Diff checker 
-  - Bot reporting (Telegram, Slack, ...etc) **SOON!**
-  - Suggest a feature! 
+- **Username**: `admin@example.com`
+- **Password**: `9TMhdaUSEzksEXF`
 
-## Code Organisation :open_file_folder:	
+**IMPORTANT:** For security reasons, it is highly recommended that you change these default credentials immediately after logging in. You can do this via the user management interface within the application.
 
-```
-+---api // Controllers, models, helpers 
-+---assets // UI assets 
-+---config // Config files: routes, security, datastores, ...etc
-+---crontab // Fetch function file
-+---scripts // Cloud SDK
-+---tasks // Grunt tasks
-+---view 
-       \---layout // App layout
-        \---pages // HTML in ejs templates 
-```
+## How to Use 
 
-## Technologies :hammer_and_wrench:	
-### Backend :gear: : 
-| Name | Description | Link 
-| ------ | ------ | ------
-| Nodejs | Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.| https://nodejs.org/en/
-Sails.js | Sails.js makes it easy to build custom, enterprise-grade Node.js apps. | https://sailsjs.com/
-MongoDB | MongoDB is a cross-platform document-oriented database program. |https://www.mongodb.com/
-EJS| EJS is a simple templating language that lets you generate HTML markup with plain JavaScript. |https://ejs.co/|
-...|...|...|
+If you want to track changes on a web page, follow these steps (You must be logged in):
 
-### Frontend :desktop_computer:  
-| Name | Description | Link 
-| ------ | ------ | ------
-| Vue.js| The Progressive JavaScript Framework. | https://vuejs.org
-| Bootstrap |  The most popular HTML, CSS, and JS library in the world. | https://getbootstrap.com/
-Font Awesome|The world's most popular and easiest to use icon.|https://fontawesome.com/|
-...|...|...|
+1. **Add New Link**: Click the "Add New Link" button on the right side.
+2. **Fill in the Description**: Enter text in the description textbox that describes the target, e.g., "Uber internal system login page."
+3. **Enter the Target Link**: Write the target link in the "Link of page" textbox, e.g., `http://s3.amazonaws.com/careemcrm/`. You can add multiple links as well. 
+4. **Specify Keywords**: Enter keywords that will be tracked on the page in the "Keywords" textbox. If these keywords appear, you will be notified (e.g., "404", "new feature", "not found"). **Note:** These keywords MUST NOT be present in the first request.
+5. **Authenticate if Necessary**: If you want to track an authenticated page, add your cookies in the "Cookie" textbox.
+6. **Select the Check Period**: Choose the period at which you want to check the page.
+7. **Set Tolerance**: In the "Tolerance" textbox, set the accepted differences between the previous fetch and the next one by characters (e.g., 100). **Note:** If you want to ignore minor changes like CSRF tokens, cache tokens, or cookie tracking, set this parameter. If left blank, the server will compare two requests and store the differences in the database as `acceptedChange`.
+8. **Add the Link**: Click the "Add Link" button. You should see the new target in the URLs list.
 
-### Object Diagram :card_file_box:	 
-![OD](/img/od.png)
+### Telegram Bot Setup for Notifications
 
-------
+To receive notifications via Telegram:
 
+1. **Create a Telegram Bot**: Use the BotFather to create a new bot on Telegram.
+2. **Get the Bot Token**: After creating the bot, you will receive a token from BotFather. Save this token.
+3. **Get Your Chat ID**: Start a chat with your bot, and then use an API like `https://api.telegram.org/bot<YourBOTToken>/getUpdates` to retrieve your chat ID.
+4. **Configure the Bot in the Application**:
+   - Go to your application's settings (http://127.0.0.1:1337/settings) and enter the bot token and chat ID.
+   - Enable Telegram notifications.
+5. **Receive Notifications**: You will now receive alerts and notifications from the URL Tracker via Telegram.
 
-### REST API :link:	
+## Setup
 
-| URL | Description 
-| ------ | ------ | 
-/api/v1/account/* | Account operations 
-/api/v1/settings | Settings operations 
-/api/v1/link/* | Target operations 
-/api/v1/entrance/login| Login operation
+### Prerequisites
 
-------
+Before you begin, ensure you have the following installed on your local machine:
 
-### Deployment :rocket:	
+- [Node.js](https://nodejs.org/) (version 16.x or higher)
+- MongoDB
+- [Docker](https://www.docker.com/) (in case of using it in a container)
+- [Git](https://git-scm.com/)
 
-**Note:** make sure to install mongodb on your OS. 
+### Clone the Repository
 
-```
-root@ubuntu:~# git clone https://github.com/ahussam/url-tracker.git
-root@ubuntu:~# cd url-tracker
-root@ubuntu:~/url-tracker# npm install 
-root@ubuntu:~/url-tracker# nodejs app.js 
+Start by cloning the repository to your local machine:
+
+```bash
+git clone https://github.com/yourusername/url-tracker.git
+cd url-tracker
 ```
 
-Then go to [http://127.0.0.1:1337](http://127.0.0.1:1337) 
+### Install Dependencies
 
-For deployment on a live server install MongoDB then replace the lines 50 & 51 in `config/env/production.js` with: 
+After cloning the repository, install the necessary dependencies:
 
-```
-      adapter: 'sails-mongo',
-      url: 'mongodb://localhost/urlTracker', 
-```
-
-For more information check this out: https://sailsjs.com/documentation/concepts/deployment/hosting 
-
-
-#### Docker Option :whale2:
-
-```
-root@ubuntu:~# git clone https://github.com/ahussam/url-tracker.git
-root@ubuntu:~# cd url-tracker
-root@ubuntu:~/url-tracker# docker-compose build
-root@ubuntu:~/url-tracker# docker-compose up
+``` bash
+npm install
 ```
 
-Then go to [http://127.0.0.1:8080](http://127.0.0.1:8080) 
+### Running the Application
 
-------
+You can start the application in development mode using:
 
-#### Default Credential :key:	
+```bash
+node app.js
+```
 
-**PLEASE MODIFIY THEM AFTER SIGN IN FOR THE FIRST TIME.** 
+This will start the Sails.js server on the port defined in your `.env` file 
 
- Email | Password 
------- | -------
-admin@example.com| 123456
-------
+### Docker Setup
 
+For a consistent environment, you can run the URL Tracker project using Docker.
 
-### Screenshots :camera:	
-![ss](/img/ss0.png)
+#### Build the Docker Image
+
+To build the Docker image, run:
+
+```bash
+docker build -t url-tracker .
+```
+
+#### Run the Docker Container
+
+To start the application using Docker:
+
+```bash
+docker run -p 1337:1337 url-tracker
+```
+
+This command maps port 1337 of the container to port 1337 of your local machine. Access the application by navigating to `http://localhost:1337` in your browser.
+
+## Screenshots
 
 ![ss](/img/ss1.png)
-
 ![ss](/img/ss2.png)
-
 ![ss](/img/ss3.png)
+![ss](/img/ss4.jpg)
 
-![ss](/img/ss4.png)
+## License
 
-------
-
-## License :page_facing_up:	
 The MIT License (MIT)
 
-Copyright (c) 2020 Abdullah Hussam 
+Copyright (c) 2024 Abdullah Hussam
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Support
+
+For support, please open an issue on GitHub.

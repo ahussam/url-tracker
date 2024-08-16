@@ -33,9 +33,9 @@ module.exports.custom = {
   * > app when it's first generated.                                        *
   *                                                                         *
   **************************************************************************/
-  platformCopyrightYear: '2020',
+  platformCopyrightYear: '2024',
   platformName:  'URL Tracker',
-  platformCompanyName: 'Abdullah Hussam',
+  platformCompanyName: 'Abdullah Al-Sultani',
   platformCompanyAboutHref: 'https://github.com/ahussam/url-tracker',
   privacyPolicyUpdatedAt: 'DATE_PRIVACY_POLICY_LAST_UPDATED',
   termsOfServiceUpdatedAt: 'DATE_TERMS_OF_SERVICE_LAST_UPDATED',

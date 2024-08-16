@@ -59,9 +59,17 @@ module.exports.bootstrap = async function() {
   }//∞
 
   // By convention, this is a good place to set up fake data during development.
-  await User.createEach([
-    { emailAddress: 'admin@example.com', fullName: 'Ryan Dahl', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('abc123') },
-  ]);
+  // await User.createEach([
+  //   { emailAddress: 'admin@example.com', fullName: 'First user', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('abc123') },
+  // ]);
+
+  // await Setting.create({
+  //   app: 'this',
+  //   reportToTelegram: false,
+  //   telegramToken: '',
+  //   telegramChatID: '',
+  // });
+
 
   // Save new bootstrap version
   await sails.helpers.fs.writeJson.with({
@@ -78,21 +86,69 @@ module.exports.bootstrap = async function() {
 
 };
 
-/* Cron setup 
-   https://www.ermmedia.nl/how-to-create-a-cronjob-in-sails
-*/
+var Agenda = require('agenda');
+var schedule = require('node-schedule');
 
-module.exports.bootstrap = function(cb) {
+module.exports.bootstrap = async function(done) {
+
+  let usersCount = User.count();
+  if(usersCount === 0){
+    await User.createEach([
+      { emailAddress: 'admin@example.com', fullName: 'First user', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('9TMhdaUSEzksEXF') },
+    ]);
+    await Setting.create({
+      app: 'this',
+      reportToTelegram: false,
+      telegramToken: '',
+      telegramChatID: '',
+    });
+  }
 
   _.extend(sails.hooks.http.app.locals, sails.config.http.locals);
-  
-  
-  var schedule = require('node-schedule');
-  sails.config.crontab.crons().forEach(function(item){
-  schedule.scheduleJob(item.interval,sails.config.crontab[item.method]);
+  sails.config.crontab.crons().forEach((item) => {
+    schedule.scheduleJob(item.interval,sails.config.crontab[item.method]);
   });
-  
-  cb();
-  };
-  
-   
+
+  const mongoConnectionString = 'mongodb://127.0.0.1/agenda';
+
+  const agenda = new Agenda({ db: { address: mongoConnectionString } });
+
+  // Define a sample job (you can define more jobs as needed)
+  agenda.define('process link', async (job) => {
+    let { link, desc, fetchEvery, keywords, acceptedChange, cookie } = job.attrs.data;
+
+    try {
+      let response = await sails.helpers.sendRequest(link, cookie);
+
+      if (!acceptedChange) {
+        let response2 = await sails.helpers.sendRequest(link, cookie);
+        acceptedChange = await sails.helpers.diffCheck(response, response2);
+      }
+
+      let newTarget = await Target.create({
+        description: desc,
+        link: link,
+        status: 'unchanged',
+        acceptedChange: acceptedChange,
+        fetchEvery: fetchEvery,
+        keywords: keywords,
+        cookie: cookie,
+      }).fetch();
+
+      let responseFile = 'responses/' + newTarget.id + '.txt';
+      const fs = require('fs');
+      fs.writeFileSync(responseFile, response);
+
+      sails.log(`Processed link ${link} and stored response.`);
+    } catch (error) {
+      sails.log.error(`Error processing link ${link}:`, error);
+    }
+  });
+
+  // Start the agenda processing
+  await agenda.start();
+
+  sails.config.agenda = agenda; // Store agenda instance globally if needed
+
+  return done();
+};

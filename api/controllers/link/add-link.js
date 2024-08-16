@@ -4,81 +4,60 @@ module.exports = {
   description: 'Add new link to the system.',
 
   fn: async function () {
-    let fs = require('fs');
-
-    function validURL(str) {
+    const validURL = (str) => {
       var pattern = new RegExp(
-        '^(https?:\\/\\/)?' + // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-          '(\\#[-a-z\\d_]*)?$',
+        '^(https?:\\/\\/)?' +
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+        '((\\d{1,3}\\.){3}\\d{1,3}))' +
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+        '(\\?[;&a-z\\d%_.~+=-]*)?' +
+        '(\\#[-a-z\\d_]*)?$',
         'i'
-      ); // fragment locator
+      );
       return !!pattern.test(str);
-    }
+    };
 
-    // Get data from the PUT request
+    try {
+      let bulk = this.req.body.bulkAdd;
+      let targets = [];
+      if (bulk) {
+        targets = this.req.body.links.split('\n');
+      } else {
+        let link = this.req.body.link;
+        targets.push(link);
+      }
 
-    let desc = this.req.body.description;
-    let link = this.req.body.link;
-    let fetchEvery = this.req.body.fetchEvery;
-    let keywords = this.req.body.keywords || '';
-    let acceptedChange = this.req.body.acceptedChange || '';
-    let cookie = this.req.body.cookie || '';
+      for (let link of targets) {
+        let desc = this.req.body.description;
+        let fetchEvery = this.req.body.fetchEvery;
+        let keywords = this.req.body.keywords || '';
+        let acceptedChange = this.req.body.acceptedChange || '';
+        let cookie = this.req.body.cookie || '';
 
-    // Check if the needed data have been provided
+        if (!desc || !link || !fetchEvery) {
+          return this.res.status(400).send('Required fields missing.');
+        }
 
-    if (desc.length === 0 || link.length === 0 || fetchEvery.length === 0) {
-      return this.res.send('0');
-    }
+        if (!validURL(link.trim())) {
+          return this.res.status(400).send('Invalid URL.');
+        }
 
-    // Check if the URL is valid
-    if (!validURL(link)) {
-      return this.res.send('0');
-    }
+        // Schedule the job using Agenda to run in 1 second
+        try {
+          await sails.config.agenda.schedule('in 1 second', 'process link', {
+            link, desc, fetchEvery, keywords, acceptedChange, cookie
+          });
+          sails.log(`Scheduled job to process link: ${link} in 1 second`);
+        } catch (error) {
+          sails.log.error('Error scheduling job:', error);
+          return this.res.status(500).send('Error scheduling job.');
+        }
+      }
 
-    let response = await sails.helpers.sendRequest(link, cookie);
-
-    // Check of acceptedChange is not set
-
-    if (acceptedChange === '') {
-      let response2 = await sails.helpers.sendRequest(link, cookie);
-
-      // find number of differences
-
-      acceptedChange = await sails.helpers.diffCheck(response, response2);
-    }
-
-    // Insert data to DB
-
-    var newTarget = await Target.create({
-      description: desc,
-      link: link,
-      status: 'unchanged',
-      acceptedChange: acceptedChange,
-      fetchEvery: fetchEvery,
-      keywords: keywords,
-      cookie: cookie,
-    }).fetch();
-
-    // Create the file that contains the response of the last request
-
-    let responseFile = 'responses/' + newTarget.id + '.txt';
-
-    fs.writeFile(responseFile, response, (err) => {
-      if (err) {throw err;}
-      console.log('Response file is created successfully.');
-    });
-
-    // Check if the new target is stored
-    sails.log(newTarget);
-
-    if (newTarget) {
-      return this.res.send('1');
-    } else {
-      return this.res.send('0');
+      return this.res.status(200).send('Links scheduled for processing in 1 second.');
+    } catch (error) {
+      sails.log.error('An unexpected error occurred:', error);
+      return this.res.status(500).send('An unexpected error occurred.');
     }
   },
 };

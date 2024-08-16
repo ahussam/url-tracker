@@ -123,7 +123,7 @@ parasails.registerPage('main', {
           '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
           '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
           '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-            '(\\#[-a-z\\d_]*)?$',
+          '(\\#[-a-z\\d_]*)?$',
           'i'
         ); // fragment locator
         return !!pattern.test(str);
@@ -141,18 +141,17 @@ parasails.registerPage('main', {
       if (!argins.description) {
         this.formErrors.description = true;
       }
-
-      // Validate empty url
-
-      if (!argins.link) {
-        this.formErrors.link = true;
+      let bulk = argins.bulkAdd;
+      if (!bulk) {
+        if (!argins.link) {
+          //this.formErrors.link = true;
+        }
+        // Validate safe url
+        if (!validURL(argins.link)) {
+          // this.formErrors.link = true;
+        }
       }
 
-      // Validate safe url
-
-      if (!validURL(argins.link)) {
-        this.formErrors.link = true;
-      }
 
       // If there were any issues, they've already now been communicated to the user,
       // so simply return undefined.  (This signifies that the submission should be
@@ -192,7 +191,7 @@ parasails.registerPage('main', {
     removeRow: async function (index) {
       let linkID = this.targets[index].id;
       console.log(linkID);
-      fetch('api/v1/link/' + linkID, {
+      fetch('api/v1/links/' + linkID, {
         method: 'DELETE',
       }).then(() => {
         console.log('Deleted');
@@ -208,7 +207,7 @@ parasails.registerPage('main', {
 
       // Mark as seen in DB and return the diff checker result
 
-      fetch('api/v1/link/' + linkID, {
+      fetch('api/v1/links/' + linkID, {
         method: 'PUT',
       })
         .then((response) => response.text())
@@ -232,7 +231,7 @@ parasails.registerPage('main', {
           return;
         }
 
-        let data = await getData('api/v1/link/getLinks');
+        let data = await getData('api/v1/links');
         console.log(data);
 
         this.targets = data;

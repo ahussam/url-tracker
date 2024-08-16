@@ -42,7 +42,7 @@ module.exports = {
     fetchEvery: {
       type: 'string',
       isIn: ['hour', 'day', 'week', 'month'],
-      defaultsTo: 'week',
+      defaultsTo: 'hour',
     },
 
 

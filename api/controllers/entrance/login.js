@@ -38,7 +38,6 @@ requests over WebSockets instead of HTTP).`,
 
   },
 
-
   exits: {
 
     success: {

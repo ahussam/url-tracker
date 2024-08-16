@@ -16,10 +16,10 @@ Cloud.setup({
   methods: {"confirmEmail":{"verb":"GET","url":"/email/confirm","args":["token"]},
   "logout":{"verb":"GET","url":"/api/v1/account/logout","args":[]},
   "updatePassword":{"verb":"PUT","url":"/api/v1/account/update-password","args":["password"]},
-  "updateSettings":{"verb":"PUT","url":"/api/v1/settings","args":["emailFrom","emailFromPassword","emailTo","reportToEmail"]},
+  "updateSettings":{"verb":"PUT","url":"/api/v1/settings","args":["reportToTelegram","telegramToken","telegramChatID"]},
   "updateProfile":{"verb":"PUT","url":"/api/v1/account/update-profile","args":["fullName","emailAddress"]},
   "login":{"verb":"PUT","url":"/api/v1/entrance/login","args":["emailAddress","password","rememberMe"]},
-  "addLink": { "verb": "POST", "url": "/api/v1/link", "args": ["description", "link", "fetchEvery"] }}
+  "addLink": { "verb": "POST", "url": "/api/v1/links", "args": ["description", "link", "fetchEvery"] }}
 
   /* eslint-enable */
 

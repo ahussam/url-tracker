@@ -35,7 +35,7 @@ module.exports = {
 
   fn: async function (inputs, exits) {
     /*
- * Javascript Diff Algorithm
+ *  Javascript Diff Algorithm
  *  By John Resig (http://ejohn.org/)
  *  Modified by Chu Alan "sprite"
  *
