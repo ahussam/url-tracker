@@ -1,14 +1,13 @@
-FROM node:10
+FROM node:16
 
-RUN mkdir -p /usr/src/app 
-
-WORKDIR /usr/src/app 
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 
+# Install dependencies
 RUN npm install
 
-COPY . . 
+COPY . .
 
 EXPOSE 1337
 

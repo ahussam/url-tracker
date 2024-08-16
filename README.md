@@ -70,7 +70,7 @@ Before you begin, ensure you have the following installed on your local machine:
 Start by cloning the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/url-tracker.git
+git clone https://github.com/ahussam/url-tracker.git
 cd url-tracker
 ```
 
