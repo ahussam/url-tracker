@@ -250,11 +250,11 @@ module.exports = {
     * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
     *                                                                          *
     ***************************************************************************/
-     onlyAllowOrigins: [
-       'https://localhost',
-       'https://127.0.0.1',
+    onlyAllowOrigins: [
+      'https://localhost',
+      'https://127.0.0.1',
     //   'https://staging.example.com',
-    // ],
+    ],
 
 
     /***************************************************************************
