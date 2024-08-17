@@ -87,15 +87,17 @@ npm install
 You can start the application in development mode using:
 
 ```bash
-node app.js
+sails lift
 ```
 
 This will start the Sails.js server on the port defined in your `.env` file 
 
 ### Docker Setup
 
-For a consistent environment, you can run the URL Tracker project using Docker.
+For a consistent environment, you can run the URL Tracker project using Docker. 
 
+### Change MONGO_URL in .env file 
+Change the `MONGO_URL` to `mongodb://mongodb:27017/url-tracker`. 
 #### Build the Docker Image
 
 To build the Docker image, run:
@@ -112,6 +114,12 @@ To start the application using Docker:
 docker run -p 1337:1337 url-tracker
 ```
 
+Or by using docker-compose
+
+```bash
+docker-compose build 
+docker-compose up 
+```
 This command maps port 1337 of the container to port 1337 of your local machine. Access the application by navigating to `http://localhost:1337` in your browser.
 
 ## Screenshots
