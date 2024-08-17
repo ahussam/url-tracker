@@ -22,7 +22,7 @@
     "sails-hook-organics": "^2.2.2",
     "sails-hook-orm": "^2.1.1",
     "sails-hook-sockets": "^2.0.4",
-    "sails-mongo": "^1.2.0"
+    "sails-mongo": "^2.1.1"
   },
   "devDependencies": {
     "eslint": "5.16.0",
