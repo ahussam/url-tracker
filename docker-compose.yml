@@ -1,24 +1,24 @@
 version: '3.8'
-
 services:
-  sails-app:
-    build: .
-    ports:
-      - "1337:1337"
-    environment:
-      NODE_ENV: production
-      MONGO_URL: mongodb://mongo:27017/sailsdb
-    volumes:
-      - .:/usr/src/app
-    depends_on:
-      - mongo
-
   mongo:
-    image: mongo:5.0
+    image: mongo:3.6
+    container_name: mongodb
     ports:
       - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
+    networks:
+      - app-network
 
-volumes:
-  mongo_data:
+  sails-app:
+    build: .
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URL: "mongodb://mongodb:27017/url-tracker"
+    ports:
+      - "1337:1337"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

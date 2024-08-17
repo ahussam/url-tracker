@@ -88,11 +88,12 @@ module.exports.bootstrap = async function() {
 
 var Agenda = require('agenda');
 var schedule = require('node-schedule');
+require('dotenv').config();
 
 module.exports.bootstrap = async function(done) {
 
-  let usersCount = User.count();
-  if(usersCount === 0){
+  let usersCount = await User.find();
+  if(usersCount.length === 0){
     await User.createEach([
       { emailAddress: 'admin@example.com', fullName: 'First user', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('9TMhdaUSEzksEXF') },
     ]);
@@ -109,7 +110,7 @@ module.exports.bootstrap = async function(done) {
     schedule.scheduleJob(item.interval,sails.config.crontab[item.method]);
   });
 
-  const mongoConnectionString = 'mongodb://127.0.0.1/agenda';
+  const mongoConnectionString = process.env.MONGO_URL;
 
   const agenda = new Agenda({ db: { address: mongoConnectionString } });
 

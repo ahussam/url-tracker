@@ -18,6 +18,7 @@
  * For more best practices and tips, see:
  * https://sailsjs.com/docs/concepts/deployment
  */
+require('dotenv').config();
 
 module.exports = {
 

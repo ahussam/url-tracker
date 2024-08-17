@@ -8,7 +8,7 @@
  * For all available options, see:
  * https://sailsjs.com/config/session
  */
-
+require('dotenv').config();
 module.exports.session = {
 
   /***************************************************************************
