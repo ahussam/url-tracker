@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 1337
 
-CMD ["sails", "lift"]
+CMD ["node", "app.js"]
