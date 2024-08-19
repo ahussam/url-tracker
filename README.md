@@ -7,6 +7,9 @@
 
 URL Tracker is a robust and scalable web application designed to monitor and track URLs, log changes, and provide detailed insights into the status and behavior of various web resources. Built on top of Sails.js, this application is perfect for tracking URLs for uptime, content changes, and performance monitoring.
 
+![ss](/img/ss1.png)
+
+
 ## Features
 
 - **URL Monitoring**: Keep track of various URLs and monitor their status over time with the capability of adding single or multiple URLs per submission.
